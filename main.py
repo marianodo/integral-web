@@ -18,6 +18,10 @@ def get_users():
     response = {'message': 'success'}
     return jsonify(response)
 
+@app.route('/', methods=['GET'])
+def get_main():
+    response = {'message': 'success'}
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
