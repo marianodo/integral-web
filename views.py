@@ -31,4 +31,5 @@ def get_last_message(client_id):
     user = Messages.query.filter_by(cli_codigo=client_id).first()
     if not user:
         return f"No message for code {client_id}"
+        
     return jsonify({"code": user.cli_codigo, "message":user.men_contenido})

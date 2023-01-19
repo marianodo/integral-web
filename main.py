@@ -8,17 +8,13 @@ def create_app(enviroment):
 
     app.config.from_object(enviroment)
     app.register_blueprint(main)
+
+    # Initi DB
     db.init_app(app)
     return app
 
-
 enviroment = config['development']
 app = create_app(enviroment)
-
-
-
-# with app.app_context():
-#     client = db.Table("cli_clientes", db.metadata, autoload=True, autoload_with=db.engine)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
