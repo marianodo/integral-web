@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask import jsonify
+from flask_cors import cross_origin
 
 from extensions import db
 from models import WebUsers, Clients, Messages
@@ -7,6 +8,7 @@ from models import WebUsers, Clients, Messages
 main = Blueprint('main', __name__)
 
 @main.route('/api/v1/get_messages', methods=['GET'])
+@cross_origin()
 def get_users():
     response = [
         {"code": 4220, "date": "2023/01/10", "time": "20:20", "message": "Apertura de usuario"},
