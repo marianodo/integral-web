@@ -17,6 +17,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = \
         f'mysql+mysqlconnector://{USER_DB}:{SECRET_KEY}@{HOST}:{PORT}/{DATABASE}?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    CORS_HEADERS = 'Content-Type'
 
 config = {
     'development': DevelopmentConfig,

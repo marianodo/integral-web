@@ -1,11 +1,14 @@
 from views import main
 from extensions import db
-from flask import Flask
 from config import config
+
+from flask import Flask
+from flask_cors import CORS
 
 def create_app(enviroment):
     app = Flask(__name__)
-
+    CORS(app)
+    
     app.config.from_object(enviroment)
     app.register_blueprint(main)
 
