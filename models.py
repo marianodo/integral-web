@@ -1,11 +1,17 @@
 from extensions import db
-
+from werkzeug.security import check_password_hash, generate_password_hash
 class WebUsers(db.Model):
     __tablename__ = "web_users"
 
     id = db.Column("id", db.Integer, primary_key=True)
     email = db.Column("email", db.String)
     password = db.Column("password", db.String)
+    email_confirmed = db.Column("email_confirmed", db.Boolean, default=False)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+    
 
     def __repr__(self) -> str:
         return f"{self.email}"
