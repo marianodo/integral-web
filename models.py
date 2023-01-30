@@ -6,12 +6,10 @@ class WebUsers(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     email = db.Column("email", db.String)
     password = db.Column("password", db.String)
-    email_confirmed = db.Column("email_confirmed", db.Boolean, default=False)
+    is_confirmed = db.Column("is_confirmed", db.Boolean, default=False)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
-    
 
     def __repr__(self) -> str:
         return f"{self.email}"
