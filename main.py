@@ -1,5 +1,7 @@
 from views import main
-from extensions import db
+from extensions import db, mail
+from flask import Flask
+
 from config import config
 
 from flask import Flask
@@ -14,6 +16,7 @@ def create_app(enviroment):
 
     # Initi DB
     db.init_app(app)
+    mail.init_app(app)
     return app
 
 enviroment = config['development']
