@@ -5,7 +5,7 @@ from itsdangerous import SignatureExpired, BadTimeSignature
 from werkzeug.security import generate_password_hash
 
 
-from extensions import db, mail, s
+from extensions import db, mail, serializer
 from models import WebUsers, Clients, Messages
 from flask import current_app
 
@@ -13,7 +13,7 @@ main = Blueprint('main', __name__)
 
 def send_token_to_email(email):
     current_app.logger.info('Creating Token')
-    token = s.dumps(email, salt=email)
+    token = serializer.dumps(email, salt=email)
     msg = Message("Email de Confirmación", sender=current_app.config["MAIL_USERNAME"], recipients=[email])
     link = url_for("main.confirm_email", token=token, email=email, _external=True)
     msg.body = f"El link es: {link}"
@@ -84,7 +84,7 @@ def register_new_user():
 @main.route("/confirm_email/<token>/<email>")
 def confirm_email(token, email):
     try:
-        s.loads(token, salt = email, max_age=60)
+        serializer.loads(token, salt = email, max_age=60)
     except SignatureExpired:
         return "The token is expired"
     except BadTimeSignature:
