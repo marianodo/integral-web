@@ -50,9 +50,7 @@ def get_users():
 
 @main.route('/', methods=['GET'])
 def get_main():
-    print(current_app.config["MAIL_USERNAME"])
     user = Messages.query.first()
-    print(user)
     return jsonify({"message": "hola"})
 
 @main.route('/last_message/<client_id>', methods=['GET'])
@@ -78,8 +76,6 @@ def register_new_user():
         password = request.form["password"]
     except KeyError:
         tb = traceback.format_exc()
-        print(tb)
-        print("AA")
         return tb
 
     add_update_web_user(email, password)
