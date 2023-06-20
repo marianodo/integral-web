@@ -4,7 +4,6 @@ from flask_mail import Message
 from itsdangerous import SignatureExpired, BadTimeSignature
 from werkzeug.security import generate_password_hash
 
-
 from extensions import db, mail, serializer
 from models import WebUsers, Clients, Messages
 from flask import current_app
@@ -51,9 +50,7 @@ def get_users():
 
 @main.route('/', methods=['GET'])
 def get_main():
-    print(current_app.config["MAIL_USERNAME"])
     user = Messages.query.first()
-    print(user)
     return jsonify({"message": "hola"})
 
 @main.route('/last_message/<client_id>', methods=['GET'])
@@ -69,12 +66,17 @@ def get_last_message(client_id):
     mail.send(msg) 
     return jsonify(last_message)
 
+import traceback
 
 @main.route('/signup', methods=['POST'])
 def register_new_user():
     # Get params
-    email = request.form["email"]
-    password = request.form["password"]
+    try:
+        email = request.form["email"]
+        password = request.form["password"]
+    except KeyError:
+        tb = traceback.format_exc()
+        return tb
 
     add_update_web_user(email, password)
     send_token_to_email(email)
