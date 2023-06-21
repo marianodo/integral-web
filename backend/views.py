@@ -68,7 +68,6 @@ def login_post():
         flash('Usuario o contraseña incorrecte. Verifique')
         return redirect(url_for('main.login')) # if the user doesn't exist or password is wrong, reload the page
     
-    print(user.is_confirmed)
     if not user.is_confirmed:
         flash('Cuenta no verificada. Por favor valide el token nuevamente')
         return redirect(url_for('main.signup')) # if the user doesn't exist or password is wrong, reload the page
