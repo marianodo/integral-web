@@ -19,6 +19,7 @@ MAIL_USERNAME = getenv('MAIL_USERNAME')
 MAIL_PASSWORD = getenv('MAIL_PASSWORD')
 
 
+
 class Config:
     pass
 

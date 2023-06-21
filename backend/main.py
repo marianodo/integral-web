@@ -13,7 +13,6 @@ def create_app(enviroment):
     CORS(app)
     
     app.config.from_object(enviroment)
-    app.secret_key = 'super secret key'
     app.register_blueprint(main)
 
     # Initi DB

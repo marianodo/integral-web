@@ -20,6 +20,7 @@ def send_token_to_email(email):
     msg.body = f"El link es: {link}"
     current_app.logger.info('Sending Email')
     mail.send(msg)
+    current_app.logger.info('Email Sent')
 
 def add_update_web_user(email, password):
     current_app.logger.info("Adding/updating user")
@@ -115,18 +116,4 @@ def confirm_email(token, email):
     user = WebUsers.query.filter_by(email=email).first()
     user.is_confirmed = True
     db.session.commit()
-    return "The token works"
-
-
-@main.route('/last_message/<client_id>', methods=['GET'])
-def get_last_message(client_id):
-    user = Messages.query.filter_by(cli_codigo=client_id).first()
-    if not user:
-        return f"No message for code {client_id}"
-
-    last_message = {"code": user.cli_codigo, "message":user.men_contenido}
-    last_message_str = f"code: {user.cli_codigo} message: {user.men_contenido}"
-    msg = Message("Last Message", sender='integralcomweb@gmail.com', recipients=["mardom4164@gmail.com"])
-    msg.body = f"Úlitmo Mensaje: {last_message_str}"
-    mail.send(msg) 
-    return jsonify(last_message)
+    return redirect(url_for('main.login'))
