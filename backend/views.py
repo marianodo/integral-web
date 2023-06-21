@@ -92,7 +92,7 @@ def register_new_user():
         return tb
 
     add_update_web_user(email, password)
-    #send_token_to_email(email)
+    send_token_to_email(email)
 
     return redirect(url_for('main.login'))
 
