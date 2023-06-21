@@ -1,6 +1,7 @@
 from views import main
 from extensions import db, mail
 from flask import Flask
+from flask_login import LoginManager
 
 from config import config
 
@@ -12,11 +13,25 @@ def create_app(enviroment):
     CORS(app)
     
     app.config.from_object(enviroment)
+    app.secret_key = 'super secret key'
     app.register_blueprint(main)
 
     # Initi DB
     db.init_app(app)
     mail.init_app(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'main.login'
+    login_manager.init_app(app)
+
+    from models import WebUsers
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        # since the user_id is just the primary key of our user table, use it in the query for the user
+        return WebUsers.query.get(int(user_id))
+    
+
     return app
 
 enviroment = config['development']

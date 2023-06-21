@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+    Usuario: 
+    {{ name }}
+</h1>
+
+<body>
+    <table class="table table-header-rotated table-striped-column hours-container" id="grid" style="border: 1px solid black;margin-left:auto;margin-right:auto;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black">Codigo</th>
+                <th class="row-header" style="border: 1px solid black">Mensaje</th>
+                <th class="row-header" style="border: 1px solid black">Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in messages %}
+            <tr>
+                <td class="week1" style="border: 1px solid black">{{ m.code }}</td>
+                <td class="week1" style="border: 1px solid black">{{ m.message }}</td>
+                <td class="week1" style="border: 1px solid black">{{ m.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}

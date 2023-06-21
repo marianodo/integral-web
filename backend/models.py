@@ -1,6 +1,7 @@
+from flask_login import UserMixin
 from extensions import db
 from werkzeug.security import check_password_hash, generate_password_hash
-class WebUsers(db.Model):
+class WebUsers(UserMixin, db.Model):
     __tablename__ = "web_users"
 
     id = db.Column("id", db.Integer, primary_key=True)
